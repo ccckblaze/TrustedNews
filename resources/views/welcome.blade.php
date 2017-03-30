@@ -3,8 +3,6 @@
     <head>
         <title>TrustedNews</title>
 
-        
-
         <style>
             html, body {
                 height: 100%;
@@ -31,14 +29,23 @@
             }
 
             .title {
-                font-size: 96px;
+                font-size: 64px;
             }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">TrustedNews</div>
+                <div class="title">TrustedNews, By {{$author}}</div>
+                <form id="frm1" action="/search">
+                     <input type="text" name="text">
+                     <input type="button" onclick="myFunction()" value="Search">
+                </form>
+                <script>
+                    function myFunction() {
+                        document.getElementById("frm1").submit();
+                    }
+                </script>
             </div>
         </div>
     </body>

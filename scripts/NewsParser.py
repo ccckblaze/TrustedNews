@@ -7,7 +7,7 @@ import os
 import os.path
 from pyjsparser import PyJsParser
 
-rootdir = "C:\\news\\xinhuanet"                       # 指明被遍历的文件夹
+rootdir = "C:\\news\\xinhuanet"
 
 def parseOneXinhuaNetJSFile(path, pub_id, titleList):
 	file = open(path, "r")
@@ -55,13 +55,15 @@ def parseOneXinhuaNetJSFile(path, pub_id, titleList):
 								finally:
 									pass
 
-	if len(valueDict) == 0:
+	if len(valueDict) < 3:
 		return
 
 	topic = (valueDict["topic"].encode("utf-8")[1:-1]).replace("\\\"", "\"")
-	content = (valueDict["content"].encode("utf-8")[1:-1])
-	if content == "" and valueDict.get("summary"):
+	if valueDict.get("content"):
+		content = (valueDict["content"].encode("utf-8")[1:-1])
+	elif valueDict.get("summary"):
 		content = (valueDict["summary"].encode("utf-8")[1:-1])
+
 	shareurl = (valueDict["shareurl"].encode("utf-8")[1:-1])
 	releasedate = "20" + (valueDict["releasedate"].encode("utf-8")[1:-1])
 
@@ -118,18 +120,6 @@ titleList = list()
 for row in results:
 	for i in range(0, len(row)):
 		titleList.append(row[i])
-
-#创建数据表
-#cur.execute("create table student(id int ,name varchar(20),class varchar(30),age varchar(10))")
-
-#插入一条数据
-#cur.execute("insert into student values('2','Tom','3 year 2 class','9')")
-
-#修改查询条件的数据
-#cur.execute("update student set class='3 year 1 class' where name = 'Tom'") 
-
-#删除查询条件的数据
-#cur.execute("delete from student where age='9'")
 
 for parent,dirnames,filenames in os.walk(rootdir):		#三个参数：分别返回1.父目录 2.所有文件夹名字（不含路径） 3.所有文件名字
 	for dirname in  dirnames:							#输出文件夹信息

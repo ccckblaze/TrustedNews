@@ -12,8 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['author' =>  'Steve']);
 });
+
+Route::get('/search', 'UserController\SearchController@search');
+
+// test
+Route::get('/login', function () {
+    return "login page";
+});
+
+Route::get('/admin', ['middleware' => 'auth', function () {
+    return view('welcome', ['author' =>  'Administrator']);
+}]);
 
 /*
 |--------------------------------------------------------------------------
