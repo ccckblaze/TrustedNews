@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UserController;
 
 use DB;
+use Request;
 use App\User;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -40,24 +41,53 @@ class SearchController extends Controller
 
     public function search()
     {
+        $news = [];
+        $searchTitle = "";
+        $searchText = "";
+        $query = DB::table("news");
+        if(isset($_GET["title"])){
+            //$news = DB::select('select * from news where title like ?', ["%".$_GET["title"]."%"]);
+            $this->cws->send_text($_GET["title"]);
+            while ($tmp = $this->cws->get_result())
+            {
+                foreach ($tmp as $w)
+                {
+                    $searchTitle .= $w['word'];
+                    $searchTitle .= "%";
+                }
+            }
+            if(strlen($searchTitle)){
+                $query = $query->where("title", "like", "%".$searchTitle);
+            }
+        }
         if(isset($_GET["text"])){
-            //$news = DB::select('select * from news where title like ?', ["%".$_GET["text"]."%"]);
-            $search = "";
             $this->cws->send_text($_GET["text"]);
             while ($tmp = $this->cws->get_result())
             {
                 foreach ($tmp as $w)
                 {
-                    $search .= $w['word'];
-                    $search .= "%";
+                    $searchText .= $w['word'];
+                    $searchText .= "%";
                 }
             }
-
-            $news = DB::table("news")->where("title", "like", "%".$search)->get();
-            return $news;
+            if(strlen($searchText)){
+                $query = $query->where("content", "like", "%".$searchText);
+            }
         }
-        else{
-            return "invalid";
+        if(count($query->getBindings())){
+            $news = $query->simplePaginate(10, ['*'], 'page');//->get();
+            $news->appends(Request::all()); // append query string
+            // format content
+            foreach ($news as $item){
+                $item->content = strip_tags($item->content);
+                $item->content = preg_replace('/\s+/', '', $item->content);
+                $item->content = str_replace("&nbsp;", "", $item->content);
+            }
         }
+        return $news;
+        #}
+        #else{
+        #    return "invalid";
+        #}
     }
 }

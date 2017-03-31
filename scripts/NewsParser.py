@@ -12,10 +12,16 @@ rootdir = "C:\\news\\xinhuanet"
 def parseOneXinhuaNetJSFile(path, pub_id, titleList):
 	file = open(path, "r")
 	#file = codecs.open("C:\\news\\xinhuanet\\4002\\235\\33540.js", "r", encoding="utf-8")
+
 	decodedStr = file.readlines()
 
 	if len(decodedStr) == 0:
-		exit()
+		print "Read Empty File"
+		return
+
+	if len(decodedStr[0]) <= 22 or len(decodedStr[0]) >= (1024 * 512):
+		print "File not valid"
+		return
 
 	text = unicode(decodedStr[0], 'utf-8') 
 
