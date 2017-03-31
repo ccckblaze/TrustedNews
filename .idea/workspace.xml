@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94945169-787e-4cb6-b5a3-947360e13b49" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController/SearchController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController/SearchController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/NewsParser.py" afterPath="$PROJECT_DIR$/scripts/NewsParser.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -776,12 +773,12 @@
       <workItem from="1490601502773" duration="13914000" />
       <workItem from="1490775884506" duration="20528000" />
       <workItem from="1490926962568" duration="2735000" />
-      <workItem from="1490940261478" duration="8274000" />
+      <workItem from="1490940261478" duration="8403000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64321000" />
+    <option name="totallyTimeSpent" value="64450000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1924" height="1056" extended-state="0" />
