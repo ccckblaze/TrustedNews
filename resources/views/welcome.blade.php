@@ -38,8 +38,11 @@
             <div class="content">
                 <div class="title">TrustedNews, By {{$author}}</div>
                 <form id="frm1" action="/search">
-                     <input type="text" name="text">
-                     <input type="button" onclick="myFunction()" value="Search">
+                    Title: <input type="title" name="title">
+                    <br/>
+                    Text: <input type="text" name="text">
+                    <br/>
+                    <input type="button" onclick="myFunction()" value="SEARCH">
                 </form>
                 <script>
                     function myFunction() {
