@@ -12,7 +12,7 @@ class CreateNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('publishers', function (Blueprint $table) {
+        Schema::create('news', function (Blueprint $table) {
             $table->increments('id');
             $table->text('title');
             $table->longText('description')->nullable();
