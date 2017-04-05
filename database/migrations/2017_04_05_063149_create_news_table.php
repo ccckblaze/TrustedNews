@@ -13,6 +13,7 @@ class CreateNewsTable extends Migration
     public function up()
     {
         Schema::create('news', function (Blueprint $table) {
+            $table->engine = "MyISAM";
             $table->increments('id');
             $table->text('title');
             $table->longText('description')->nullable();
