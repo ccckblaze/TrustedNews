@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Publisher extends Model
+class Publisher
 {
     /**
      * The attributes that are mass assignable.
