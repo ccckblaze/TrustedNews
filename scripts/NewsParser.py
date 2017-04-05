@@ -101,11 +101,28 @@ def parseOneXinhuaNetJSFile(path, pub_id, titleList):
 
 	#print result
 
+envFile = open("..\\" + ".env", "r")
+#file = codecs.open("C:\\news\\xinhuanet\\4002\\235\\33540.js", "r", encoding="utf-8")
+
+envString = envFile.readlines()
+
+if len(envString) == 0:
+	print "Read Empty Config File"
+	exit()
+
+for line in envString:
+	index = line.find("DB_PASSWORD")
+	if index != -1:
+		password = line[index + 12:-1]
+
+#index = envString[7].find()
+#envString = envString[index:envString[0].find("\n", index)]
+
 conn= MySQLdb.connect(
 	host='localhost',
 	port = 3306,
 	user='root',
-	passwd='1q2w3e',
+	passwd=password,
 	db ='trustednews',
 	)
 cur = conn.cursor()
