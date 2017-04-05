@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder {
         //App\User::create(['email' => 'foo@bar.com', 'password' => 'asdfasdffd']);
 
         DB::table('publishers')->delete();
-        App\Publisher::create(['title' => '新华网']);
+        App\Publisher::create(['name' => '新华网']);
     }
 
 }
