@@ -26,7 +26,6 @@ class CreatePublishersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('news');
         Schema::drop('publishers');
     }
 }

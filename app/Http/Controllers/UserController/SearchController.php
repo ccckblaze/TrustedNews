@@ -111,6 +111,17 @@ class SearchController extends Controller
                 $item->content = NetworkUtils::TrimHtml($item->content);
             }
         }
+        $format = true;
+        if($format){
+            $formatedNews = "";
+            foreach ($news as $item) {
+                $formatedNews .= $item->title;
+                $formatedNews .= "<br/>";
+                $formatedNews .= $item->content;
+                $formatedNews .= "<br/><br/>";
+            }
+            return $formatedNews;
+        }
         return $news;
     }
 }

@@ -20,9 +20,9 @@ class CreateNewsTable extends Migration
             $table->longText('content');
             $table->longText('refer')->nullable();
             $table->dateTime('datetime')->nullable();
-            $table->integer('pub_id')->unsigned();;
-            $table->text('from');
+            $table->integer('pub_id')->unsigned();
             $table->foreign('pub_id')->references('id')->on('publishers');
+            $table->text('from');
         });
     }
 
@@ -33,6 +33,10 @@ class CreateNewsTable extends Migration
      */
     public function down()
     {
+        Schema::table('news', function($table)
+        {
+            $table->dropForeign('news_pub_id_foreign'); // Drop foreign key 'user_id' from 'posts' table
+        });
         Schema::drop('news');
     }
 }
