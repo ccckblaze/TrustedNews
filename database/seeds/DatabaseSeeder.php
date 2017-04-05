@@ -17,8 +17,11 @@ class UserTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('users')->delete();
-        App\User::create(['email' => 'foo@bar.com', 'password' => 'asdfasdffd']);
+        // DB::table('users')->delete();
+        //App\User::create(['email' => 'foo@bar.com', 'password' => 'asdfasdffd']);
+
+        DB::table('publishers')->delete();
+        App\Publisher::create(['title' => '新华网']);
     }
 
 }
