@@ -36,13 +36,13 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">TrustedNews, By {{$author}}</div>
+                <div class="title">可信闻, By {{$author}}</div>
                 <form id="frm1" action="/search">
-                    Title: <input type="title" name="title">
+                    Title: <input type="title" name="标题">
                     <br/>
-                    Text: <input type="text" name="text">
+                    Text: <input type="text" name="内容">
                     <br/>
-                    <input type="button" onclick="myFunction()" value="SEARCH">
+                    <input type="button" onclick="myFunction()" value="搜索">
                 </form>
                 <script>
                     function myFunction() {
