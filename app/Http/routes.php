@@ -11,6 +11,14 @@
 |
 */
 
+// Sub-domains
+
+Route::group(array('domain' => 'mp.{domain}.com'), function() {
+    Route::any('/', 'UserController\MPController@show');
+});
+
+// Domain
+
 Route::get('/', function () {
     return view('welcome', ['author' =>  'Steve']);
 });

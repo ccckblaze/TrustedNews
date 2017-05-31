@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\UserController;
 
+use App\Libraries\Utils\StringUtils;
 use DB;
 use Request;
 use Validator;
@@ -34,32 +35,86 @@ class SearchController extends Controller
         $this->cws = new PSCWS4('utf8');
         $this->cws->set_dict(dirname(__FILE__) . '/../../../Libraries/pscws4/etc/dict.utf8.xdb');
         $this->cws->set_rule(dirname(__FILE__) . '/../../../Libraries/pscws4/etc/rules.utf8.ini');
-        //$cws->set_multi(3);
-        //$cws->set_ignore(true);
-        //$cws->set_debug(true);
-        //$cws->set_duality(true);
+        $this->cws->set_multi(PSCWS4_MULTI_DUALITY | PSCWS4_MULTI_ZMAIN);
+        //$this->cws->set_ignore(true);
+        //$this->cws->set_debug(true);
+        $this->cws->set_duality(true);
     }
 
-    public function search()
+    public function customDuality($text)
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        if (isset($_SESSION['last_search'])) {
-            $timePast = time() - $_SESSION['last_search'];
-            if($timePast < 10){
-                return "Slow down~ Buddy!";
+        $dualities = array();
+        $this->cws->send_text($text);
+
+        $buffer = "";
+        $checkBuffer = function() use (&$dualities, &$buffer){
+            if(mb_strlen($buffer, 'utf8')){
+                array_push($dualities, $buffer);
+                $buffer = "";
+                return true;
             }
+            return false;
+        };
+
+        while ($tmp = $this->cws->get_result()) {
+            foreach ($tmp as $w) {
+                // ignore conjunction
+                if($w['attr'] != 'c'){
+                    // Fix for InnoDB FullText Index
+                    if(mb_strlen($w['word'], 'utf8') == 1){
+                        // Noun or verb
+                        if (0 === strpos($w['attr'], 'n') || 0 === strpos($w['attr'], 'v')){
+                            $buffer .= $w['word'];
+                        }
+                        else{
+                            $checkBuffer();
+                            //array_push($dualities, $w['word']);
+                        }
+                    }
+                    else{
+                        $checkBuffer();
+                        array_push($dualities, $w['word']);
+                    }
+                }
+            }
+            $checkBuffer();
         }
-        $_SESSION['last_search'] = time();
+        return $dualities;
+    }
+
+    public function search($params = array())
+    {
+        $setParam = function($key, $defaultValue = "", $fromGet = false) use (&$params){
+            $value = $defaultValue;
+            if(isset($params[$key])){
+                $value = $params[$key];
+            }
+            else{
+                if($fromGet && isset($_GET[$key])){
+                    $value = $_GET[$key];
+                }
+            }
+            return $value;
+        };
+
+        // Set Parameters
+        $url = $setParam("url", "", true);
+        $title = $setParam("title", "", true);
+        $text = $setParam("text", "", true);
+        $format = $setParam("format", true);
+        $paging = $setParam("paging", true);
+        $checkSession = $setParam("checkSession", true);
+
+        // Check Session Period
+        if($checkSession && !NetworkUtils::CheckSessionPeriod(10)){
+            return "搜索过于频繁，请稍后再试！";
+        }
 
         $news = [];
-        $searchTitle = "";
-        $searchText = "";
         $query = DB::table("news");
-        if (isset($_GET["url"])) {
+        if (!empty($url)) {
             #ini_set('user_agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0');
-            $result = file_get_contents($_GET["url"]);
+            $result = file_get_contents($url);
             $result = NetworkUtils::TrimHtml($result, true);
 
             $this->cws->send_text($result);
@@ -77,50 +132,44 @@ class SearchController extends Controller
                 echo $keyword['word'];
             }
         } else {
-            if (isset($_GET["title"])) {
-                //$news = DB::select(\'select * from news where title like ?\', ["%".$_GET["title"]."%"]);
-                $this->cws->send_text($_GET["title"]);
-                while ($tmp = $this->cws->get_result()) {
-                    foreach ($tmp as $w) {
-                        $searchTitle .= $w['word'];
-                        $searchTitle .= "%";
-                    }
-                }
-                if (strlen($searchTitle)) {
-                    $query = $query->where("title", "like", "%" . $searchTitle);
+            if (!empty($title)) {
+                foreach ($this->customDuality($title) as $w) {
+                    $query = $query->whereRaw("MATCH(title) AGAINST(?)", [$w]);
                 }
             }
-            if (isset($_GET["text"])) {
-                $this->cws->send_text($_GET["text"]);
-                while ($tmp = $this->cws->get_result()) {
-                    foreach ($tmp as $w) {
-                        $searchText .= $w['word'];
-                        $searchText .= "%";
-                    }
-                }
-                if (strlen($searchText)) {
-                    $query = $query->where("content", "like", "%" . $searchText);
+            if (!empty($text)) {
+                foreach ($this->customDuality($text) as $w) {
+                    $query = $query->whereRaw("MATCH(content) AGAINST(?)", [$w]);
                 }
             }
         }
         if (count($query->getBindings())) {
-            $news = $query->simplePaginate(10, ['*'], 'page');//->get();
-            $news->appends(Request::all()); // append query string
+            if($paging){
+                $news = $query->simplePaginate(10, ['*'], 'page');//->get();
+                $news->appends(Request::all()); // append query string
+            }
+            else{
+                $news = $query->limit(1);
+                $news = $query->get();
+            }
             // format content
             foreach ($news as $item) {
                 $item->content = NetworkUtils::TrimHtml($item->content);
             }
         }
-        $format = true;
+
         if($format){
-            $formatedNews = "";
+            $formattedNews = "";
             foreach ($news as $item) {
-                $formatedNews .= $item->title;
-                $formatedNews .= "<br/>";
-                $formatedNews .= $item->content;
-                $formatedNews .= "<br/><br/>";
+                $formattedNews .= $item->title;
+                $formattedNews .= "<br/>";
+                $formattedNews .= $item->content;
+                $formattedNews .= "<br/><br/>";
             }
-            return $formatedNews;
+            if(empty($formattedNews)){
+                return "无结果。";
+            }
+            return $formattedNews;
         }
         return $news;
     }

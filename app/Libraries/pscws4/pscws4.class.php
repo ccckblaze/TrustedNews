@@ -1,23 +1,23 @@
 <?php
 /* ----------------------------------------------------------------------- *\
-   PHP°æ¼òÒ×ÖĞÎÄ·Ö´ÊµÚËÄ°æ(PSCWS v4.0) - ·Ö´ÊºËĞÄÀà¿â´úÂë
+   PHPç‰ˆç®€æ˜“ä¸­æ–‡åˆ†è¯ç¬¬å››ç‰ˆ(PSCWS v4.0) - åˆ†è¯æ ¸å¿ƒç±»åº“ä»£ç 
    -----------------------------------------------------------------------
-   ×÷Õß: ÂíÃ÷Á·(hightman) (MSN: MingL_Mar@msn.com) (php-QQÈº: 17708754)
-   ÍøÕ¾: http://www.ftphp.com/scws/
-   Ê±¼ä: 2007/05/20
-   ĞŞ¶©: 2008/12/20
-   ±à¼­: set number ; syntax on ; set autoindent ; set tabstop=4 (vim)
+   ä½œè€…: é©¬æ˜ç»ƒ(hightman) (MSN: MingL_Mar@msn.com) (php-QQç¾¤: 17708754)
+   ç½‘ç«™: http://www.ftphp.com/scws/
+   æ—¶é—´: 2007/05/20
+   ä¿®è®¢: 2008/12/20
+   ç¼–è¾‘: set number ; syntax on ; set autoindent ; set tabstop=4 (vim)
    -----------------------------------------------------------------------
-   ºËĞÄÀàµÄ¹¦ÄÜ:
+   æ ¸å¿ƒç±»çš„åŠŸèƒ½:
 
-     ÕâÊÇ scws-1.0 (´¿CÊµÏÖ) µÄÒ»¸ö PHP ÊµÏÖ·½Ê½, Ëã·¨ºÍ¹¦ÄÜÒ»Ñù
-     Õë¶ÔÊäÈëµÄ×Ö·û´®ÎÄ±¾Ö´ĞĞ·Ö´Ê, ¸ù¾İ´ÊµäN-Â·¾¶×î´ó¸ÅÂÊ·¨·Ö´Ê.
+     è¿™æ˜¯ scws-1.0 (çº¯Cå®ç°) çš„ä¸€ä¸ª PHP å®ç°æ–¹å¼, ç®—æ³•å’ŒåŠŸèƒ½ä¸€æ ·
+     é’ˆå¯¹è¾“å…¥çš„å­—ç¬¦ä¸²æ–‡æœ¬æ‰§è¡Œåˆ†è¯, æ ¹æ®è¯å…¸N-è·¯å¾„æœ€å¤§æ¦‚ç‡æ³•åˆ†è¯.
 	 
-	 Ö§³ÖÈËÃû¡¢µØÃû¡¢Êı×ÖÊ¶±ğ£»ÄÜÊ¶±ğ .NET, C++, Q±Ò Ö®ÀàÌØÊâ´Ê»ã
-	 Ö§³Ö UTF-8/GBK ±àÂë, ÌØ±ğÎªËÑË÷ÒıÇæ¿¼Á¿¶øÖ§³Ö³¤´ÊÔÙÏ¸·ÖµÄ¸´·½·Ö´Ê·¨
-	 Ê¹ÓÃ UTF-8 ¿ÉÀ©Õ¹µ½ÈÎºÎ¶à×Ö½ÚÓïÑÔ·Ö´Ê(ÈçÈÕÓï£¬º«ÓïµÈ)
+	 æ”¯æŒäººåã€åœ°åã€æ•°å­—è¯†åˆ«ï¼›èƒ½è¯†åˆ« .NET, C++, Qå¸ ä¹‹ç±»ç‰¹æ®Šè¯æ±‡
+	 æ”¯æŒ UTF-8/GBK ç¼–ç , ç‰¹åˆ«ä¸ºæœç´¢å¼•æ“è€ƒé‡è€Œæ”¯æŒé•¿è¯å†ç»†åˆ†çš„å¤æ–¹åˆ†è¯æ³•
+	 ä½¿ç”¨ UTF-8 å¯æ‰©å±•åˆ°ä»»ä½•å¤šå­—èŠ‚è¯­è¨€åˆ†è¯(å¦‚æ—¥è¯­ï¼ŒéŸ©è¯­ç­‰)
 
-   ÓÃ·¨(Ö÷ÒªÀà·½·¨, Óë scws Ö® PHP À©Õ¹°æ¼æÈİÓÃ·¨):
+   ç”¨æ³•(ä¸»è¦ç±»æ–¹æ³•, ä¸ scws ä¹‹ PHP æ‰©å±•ç‰ˆå…¼å®¹ç”¨æ³•):
 
    class PSCWS4 { 
 	   void close(void);
@@ -38,7 +38,7 @@
    
 \* ----------------------------------------------------------------------- */
 
-/** ´Êµä¶ÁÈ¡´úÂë (xdb_r) */
+/** è¯å…¸è¯»å–ä»£ç  (xdb_r) */
 require_once (dirname(__FILE__) . '/xdb_r.class.php');
 
 /** defines for ruleset */
@@ -66,7 +66,7 @@ define ('PSCWS4_MULTI_ZALL',	0x8000);		// attr = ** , all split to single chars
 define ('PSCWS4_MULTI_MASK',	0xf000);		// mask check for multi set
 define ('PSCWS4_ZIS_USED',		0x8000000);
 
-/** single bytes segment flag (´¿µ¥×Ö½Ú×Ö·û) */
+/** single bytes segment flag (çº¯å•å­—èŠ‚å­—ç¬¦) */
 define ('PSCWS4_PFLAG_WITH_MB',	0x01);
 define ('PSCWS4_PFLAG_ALNUM',	0x02);
 define ('PSCWS4_PFLAG_VALID',	0x04);
@@ -74,23 +74,23 @@ define ('PSCWS4_PFLAG_DIGIT',	0x08);
 define ('PSCWS4_PFLAG_ADDSYM',	0x10);
 
 /** constant var define */
-define ('PSCWS4_WORD_FULL',		0x01);	// ¶à×Ö: Õû´Ê
-define ('PSCWS4_WORD_PART',		0x02);	// ¶à×Ö: Ç°´Ê¶Î
-define ('PSCWS4_WORD_USED',		0x04);	// ¶à×Ö: ÒÑÊ¹ÓÃ
-define ('PSCWS4_WORD_RULE',		0x08);	// ¶à×Ö: ×Ô¶¯Ê¶±ğµÄ
+define ('PSCWS4_WORD_FULL',		0x01);	// å¤šå­—: æ•´è¯
+define ('PSCWS4_WORD_PART',		0x02);	// å¤šå­—: å‰è¯æ®µ
+define ('PSCWS4_WORD_USED',		0x04);	// å¤šå­—: å·²ä½¿ç”¨
+define ('PSCWS4_WORD_RULE',		0x08);	// å¤šå­—: è‡ªåŠ¨è¯†åˆ«çš„
 
-define ('PSCWS4_ZFLAG_PUT',		0x02);	// µ¥×Ö: ÒÑÊ¹ÓÃ
-define ('PSCWS4_ZFLAG_N2',		0x04);	// µ¥×Ö: Ë«×ÖÃû´ÊÍ·
-define ('PSCWS4_ZFLAG_NR2',		0x08);	// µ¥×Ö: ´ÊÍ·ÇÒÎªË«×ÖÈËÃû
-define ('PSCWS4_ZFLAG_WHEAD',	0x10);	// µ¥×Ö: ´ÊÍ·
-define ('PSCWS4_ZFLAG_WPART',	0x20);	// µ¥×Ö: ´ÊÎ²»ò´ÊÖĞ
-define ('PSCWS4_ZFLAG_ENGLISH',	0x40);	// µ¥×Ö: ¼ĞÔÚÖĞ¼äµÄÓ¢ÎÄ
-define ('PSCWS4_ZFLAG_SYMBOL',	0x80);	// µ¥×Ö: ·ûºÅÏµÁĞ
+define ('PSCWS4_ZFLAG_PUT',		0x02);	// å•å­—: å·²ä½¿ç”¨
+define ('PSCWS4_ZFLAG_N2',		0x04);	// å•å­—: åŒå­—åè¯å¤´
+define ('PSCWS4_ZFLAG_NR2',		0x08);	// å•å­—: è¯å¤´ä¸”ä¸ºåŒå­—äººå
+define ('PSCWS4_ZFLAG_WHEAD',	0x10);	// å•å­—: è¯å¤´
+define ('PSCWS4_ZFLAG_WPART',	0x20);	// å•å­—: è¯å°¾æˆ–è¯ä¸­
+define ('PSCWS4_ZFLAG_ENGLISH',	0x40);	// å•å­—: å¤¹åœ¨ä¸­é—´çš„è‹±æ–‡
+define ('PSCWS4_ZFLAG_SYMBOL',	0x80);	// å•å­—: ç¬¦å·ç³»åˆ—
 
 define ('PSCWS4_MAX_EWLEN',		16);
 define ('PSCWS4_MAX_ZLEN',		128);
 
-/** Ö÷Àà¿â´úÂë */
+/** ä¸»ç±»åº“ä»£ç  */
 class PSCWS4
 {	
 	var $_xd;		// xdb dict handler
@@ -112,7 +112,7 @@ class PSCWS4
 	function __construct($charset) { $this->PSCWS4($charset); }
 	function __destruct() { $this->close(); }
 
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     function PSCWS4($charset = 'gbk')
     {
         $this->_xd = false;
@@ -120,7 +120,7 @@ class PSCWS4
         $this->set_charset($charset);
     }
 
-	// ÉèÖÃ×Ö·û¼¯(ztab)
+	// è®¾ç½®å­—ç¬¦é›†(ztab)
 	function set_charset($charset = 'gbk')
 	{
 		$charset = strtolower(trim($charset));
@@ -150,7 +150,7 @@ class PSCWS4
 		}		
 	}
 
-	// ÉèÖÃ´Êµä
+	// è®¾ç½®è¯å…¸
 	function set_dict($fpath)
 	{
 		$xdb = new XDB_R;
@@ -158,20 +158,20 @@ class PSCWS4
 		$this->_xd = $xdb;
 	}
 
-	// ÉèÖÃ¹æÔò¼¯
+	// è®¾ç½®è§„åˆ™é›†
 	function set_rule($fpath)
 	{
 		$this->_rule_load($fpath);
 	}
 
-	// ÉèÖÃºöÂÔ·ûºÅÓëÎŞÓÃ×Ö·û
+	// è®¾ç½®å¿½ç•¥ç¬¦å·ä¸æ— ç”¨å­—ç¬¦
 	function set_ignore($yes)
 	{
 		if ($yes == true) $this->_mode |= PSCWS4_IGN_SYMBOL;
 		else $this->_mode &= ~PSCWS4_IGN_SYMBOL;
 	}
 
-	// ÉèÖÃ¸´ºÏ·Ö´ÊµÈ¼¶ ($level = 0,15)
+	// è®¾ç½®å¤åˆåˆ†è¯ç­‰çº§ ($level = 0,15)
 	function set_multi($level)
 	{	
 		$level = (intval($level) << 12);
@@ -180,21 +180,21 @@ class PSCWS4
 		if ($level & PSCWS4_MULTI_MASK) $this->_mode |= $level;
 	}
 
-	// ÉèÖÃÊÇ·ñÏÔÊ¾·Ö´Êµ÷ÊÔĞÅÏ¢
+	// è®¾ç½®æ˜¯å¦æ˜¾ç¤ºåˆ†è¯è°ƒè¯•ä¿¡æ¯
 	function set_debug($yes)
 	{
 		if ($yes == true) $this->_mode |= PSCWS4_DEBUG;
 		else $this->_mode &= ~PSCWS4_DEBUG;
 	}
 
-	// ÉèÖÃÊÇ·ñ×Ô¶¯½«É¢×Ö¶şÔª»¯
+	// è®¾ç½®æ˜¯å¦è‡ªåŠ¨å°†æ•£å­—äºŒå…ƒåŒ–
 	function set_duality($yes)
 	{
 		if ($yes == true) $this->_mode |= PSCWS4_DUALITY;
 		else $this->_mode &= ~PSCWS4_DUALITY;
 	}
 
-	// ÉèÖÃÒª·Ö´ÊµÄÎÄ±¾×Ö·û´®
+	// è®¾ç½®è¦åˆ†è¯çš„æ–‡æœ¬å­—ç¬¦ä¸²
 	function send_text($text)
 	{
 		$this->_txt = (string) $text;
@@ -202,7 +202,7 @@ class PSCWS4
 		$this->_off = 0;
 	}
 
-	// È¡»ØÒ»Åú·Ö´Ê½á¹û(ĞèÒª¶à´Îµ÷ÓÃ, Ö±µ½·µ»Ø false)
+	// å–å›ä¸€æ‰¹åˆ†è¯ç»“æœ(éœ€è¦å¤šæ¬¡è°ƒç”¨, ç›´åˆ°è¿”å› false)
 	function get_result()
 	{
 		$off = $this->_off;
@@ -258,7 +258,7 @@ class PSCWS4
 			}
 			else if (($pflag & PSCWS4_PFLAG_WITH_MB) && $clen == 1)
 			{
-				// mb + single-byte. allowd: alpha+num + ÖĞÎÄ
+				// mb + single-byte. allowd: alpha+num + ä¸­æ–‡
 				if (!$this->_is_alnum($cx)) break;
 
 				$pflag &= ~PSCWS4_PFLAG_VALID;
@@ -281,7 +281,7 @@ class PSCWS4
 			if (++$zlen >= PSCWS4_MAX_ZLEN) break;
 		}
 		
-		// hightman.070624: ´¦Àí°ë¸ö×ÖµÄÎÊÌâ
+		// hightman.070624: å¤„ç†åŠä¸ªå­—çš„é—®é¢˜
 		if (($ch = $off) > $len)	
 			$off -= $clen;
 		
@@ -303,7 +303,7 @@ class PSCWS4
 		return $this->_res;
 	}
 
-	// È¡»ØÆµÂÊºÍÈ¨ÖØ×ÛºÏ×î´óµÄÇ° N ¸ö´Ê
+	// å–å›é¢‘ç‡å’Œæƒé‡ç»¼åˆæœ€å¤§çš„å‰ N ä¸ªè¯
 	function get_tops($limit = 10, $xattr = '')
 	{
 		$ret = array();
@@ -371,7 +371,7 @@ class PSCWS4
 		return $list;
 	}
 
-	// ¹Ø±ÕÊÍ·Å×ÊÔ´
+	// å…³é—­é‡Šæ”¾èµ„æº
 	function close()
 	{
 		// free the dict
@@ -386,7 +386,7 @@ class PSCWS4
 		$this->_rs = array();
 	}
 
-	// °æ±¾
+	// ç‰ˆæœ¬
 	function version()
 	{
 		return sprintf('PSCWS/4.0 - by hightman');
@@ -597,10 +597,11 @@ class PSCWS4
 		if (!$value) return false;
 		
 		$tmp = unpack('ftf/fidf/Cflag/a3attr', $value);
+		$tmp['attr'] = trim($tmp['attr']);
 		return $tmp;
 	}
 
-	// ssegment, µ¥×Ö½ÚÓÃÓïÇĞ¸î
+	// ssegment, å•å­—èŠ‚ç”¨è¯­åˆ‡å‰²
 	function _ssegment($end)
 	{
 		$start = $this->_off;
@@ -635,7 +636,7 @@ class PSCWS4
 			}
 		}
 		
-		// È¡³öµ¥´Ê¼°±êµã. Êı×ÖÔÊĞíÒ»¸öµãÇÒÏÂÒ»¸öÎªÊı×Ö,²»Á¬ĞøµÄ. ×ÖÄ¸ÔÊĞíÒ»¸ö²»Á¬ĞøµÄ'
+		// å–å‡ºå•è¯åŠæ ‡ç‚¹. æ•°å­—å…è®¸ä¸€ä¸ªç‚¹ä¸”ä¸‹ä¸€ä¸ªä¸ºæ•°å­—,ä¸è¿ç»­çš„. å­—æ¯å…è®¸ä¸€ä¸ªä¸è¿ç»­çš„'
 		while ($start < $end)
 		{
 			$ch = $txt[$start++];
@@ -705,14 +706,14 @@ class PSCWS4
 		$zmap = $this->_zmap;
 		$item = $wmap[$i][$j];
 		
-		// hightman.070705: ¼ÓÈë item == null ÅĞ¶Ï, ·ÀÖ¹³¬³¤´Ê(255×ÖÒÔÉÏ)unsigned charÒç³ö
+		// hightman.070705: åŠ å…¥ item == null åˆ¤æ–­, é˜²æ­¢è¶…é•¿è¯(255å­—ä»¥ä¸Š)unsigned charæº¢å‡º
 		if (($item == false) || (($this->_mode & PSCWS4_IGN_SYMBOL) 
 			&& !($item['flag'] & PSCWS4_ZFLAG_ENGLISH) && $item['attr'] == 'un'))
 		{
 			return;
 		}
 		
-		// hightman.070701: É¢×Ö×Ô¶¯¶şÔª¾ÛºÏ
+		// hightman.070701: æ•£å­—è‡ªåŠ¨äºŒå…ƒèšåˆ
 		if ($this->_mode & PSCWS4_DUALITY)
 		{
 			$k = $this->_zis;
@@ -899,7 +900,7 @@ class PSCWS4
 		}
 	}
 
-	// msegment(ÖØµãº¯Êı)
+	// msegment(é‡ç‚¹å‡½æ•°)
 	function _msegment($end, $zlen)
 	{
 		$this->_wmap = array_fill(0, $zlen, array_fill(0, $zlen, false));
@@ -993,7 +994,7 @@ class PSCWS4
 				if (($r1['flag'] & PSCWS4_ZRULE_PREFIX) && ($i < ($zlen - $clen)))
 				{
 					// prefix, check after (zmin~zmax)
-					// ÏÈ¼ì²é zmin ×ÖÄÚÊÇ·ñÈ«²¿·ûºÏÒªÇó, ÔÙÔÚ zmax ·¶Î§ÄÚÈ¡µÃ·ûºÏÒªÇóµÄ×Ö
+					// å…ˆæ£€æŸ¥ zmin å­—å†…æ˜¯å¦å…¨éƒ¨ç¬¦åˆè¦æ±‚, å†åœ¨ zmax èŒƒå›´å†…å–å¾—ç¬¦åˆè¦æ±‚çš„å­—
 					for ($ch = 1; $ch <= $clen; $ch++)
 					{
 						$j = $i + $ch;
@@ -1013,7 +1014,7 @@ class PSCWS4
 						$j++;
 					}
 					
-					// ×¢ÒâÔ­À´2×ÖÈËÃû,Ê¶±ğºóÈÔÎª2×ÖµÄÇé¿ö
+					// æ³¨æ„åŸæ¥2å­—äººå,è¯†åˆ«åä»ä¸º2å­—çš„æƒ…å†µ
 					if ($wmap[$i][$i]['flag'] & PSCWS4_ZFLAG_NR2)
 					{
 						if ($clen == 1) continue;
@@ -1066,7 +1067,7 @@ class PSCWS4
 				}
 			}
 
-			// check for 'two words' (such as: Å·Ñô** , **Î÷Â·)
+			// check for 'two words' (such as: æ¬§é˜³** , **è¥¿è·¯)
 			for ($i = $zlen - 2; $i >= 0; $i--)
 			{
 				// with value ==> must be have SCWS_WORD_FULL, so needn't check it ag.

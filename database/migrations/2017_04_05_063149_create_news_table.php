@@ -13,7 +13,7 @@ class CreateNewsTable extends Migration
     public function up()
     {
         Schema::create('news', function (Blueprint $table) {
-            $table->engine = "MyISAM";
+            //$table->engine = "MyISAM";
             $table->increments('id');
             $table->text('title');
             $table->longText('description')->nullable();
@@ -24,6 +24,9 @@ class CreateNewsTable extends Migration
             $table->foreign('pub_id')->references('id')->on('publishers');
             $table->text('from');
         });
+
+        DB::statement('ALTER TABLE news ADD FULLTEXT title(title) WITH PARSER ngram');
+        DB::statement('ALTER TABLE news ADD FULLTEXT content(content) WITH PARSER ngram');
     }
 
     /**
@@ -36,6 +39,8 @@ class CreateNewsTable extends Migration
         Schema::table('news', function($table)
         {
             $table->dropForeign('news_pub_id_foreign'); // Drop foreign key 'user_id' from 'posts' table
+            $table->dropIndex('title');
+            $table->dropIndex('content');
         });
         Schema::drop('news');
     }

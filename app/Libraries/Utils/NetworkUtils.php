@@ -27,4 +27,20 @@ class NetworkUtils
         $result = str_replace("&nbsp;", "", $result);
         return $result;
     }
+
+    static public function CheckSessionPeriod($limit, $key = ""){
+        // Check Session Period
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SESSION['last'.$key])) {
+            $timePast = time() - $_SESSION['last'.$key];
+            if($timePast < $limit){
+                return false;
+            }
+        }
+        $_SESSION['last'.$key] = time();
+
+        return true;
+    }
 }
